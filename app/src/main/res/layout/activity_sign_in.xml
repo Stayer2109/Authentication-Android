@@ -6,56 +6,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".LoginPageActivity">
+    android:padding="24dp"
+    tools:context=".SignInActivity">
 
     <TextView
         android:id="@+id/textTitleLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đăng Nhập"
-        android:textSize="24sp"
-        android:textStyle="bold"
         android:layout_gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"/>
+        android:layout_marginBottom="40dp"
+        android:text="Đăng Nhập"
+        android:textColor="#6750A4"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/etPhone"
         android:layout_width="match_parent"
-        android:padding="12dp"
         android:layout_height="48dp"
-        android:hint="Nhập Số Điện Thoại" />
+        android:hint="Nhập Số Điện Thoại"
+        android:padding="12dp" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
-        android:padding="12dp"
         android:layout_height="48dp"
+        android:layout_marginTop="22dp"
         android:hint="Nhập mật khẩu"
         android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:text="Đăng nhập" />
 
+    <!--  Put On Click  -->
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/clickableSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chưa có tài khoản? Đăng Kí Tại Đây"
-        android:textSize="12sp"
         android:layout_gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:text="Chưa có tài khoản? Đăng ký tại đây"
+        android:textSize="14sp" />
 
 </LinearLayout>

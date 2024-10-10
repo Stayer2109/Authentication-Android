@@ -4,25 +4,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class EmailVerificationActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
+    // Variables
+    TextView clickableSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_email_verification);
+        setContentView(R.layout.main);
 
-        Button btnSubmitEmailOtp = findViewById(R.id.btnSubmitEmailOtp);
-        btnSubmitEmailOtp.setOnClickListener(new View.OnClickListener() {
+        // Mappings
+        clickableSignUp = findViewById(R.id.clickableSignUp);
+        clickableSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EmailVerificationActivity.this, SignInActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+                finish();
             }
         });
+
+
     }
 }
