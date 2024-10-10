@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".UserInfoActivity">
+
+    <TextView
+        android:id="@+id/textViewUserInfoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thông Tin Người Dùng"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"/>
+
+
+    <TextView
+        android:id="@+id/tvUserEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="16dp"
+        android:text="Email: ga99@gmail.com" />
+
+    <TextView
+        android:id="@+id/tvUserFullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="16dp"
+        android:text="Họ Tên: Tran Van Ga" />
+
+    <TextView
+        android:id="@+id/tvAge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="16dp"
+        android:text="Tuổi: 99" />
+
+    <TextView
+        android:id="@+id/tvPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="16dp"
+        android:text="Số Điện Thoại: 1234567890" />
+
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="16dp"
+        android:text="Địa Chỉ: Quận 10 Hồ Chí Minh" />
+
+</LinearLayout>

@@ -11,20 +11,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class EmailVerificationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        Button btnRegister = findViewById(R.id.btnRegister);
+        setContentView(R.layout.activity_email_verification);
 
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        Button btnSubmitEmailOtp = findViewById(R.id.btnSubmitEmailOtp);
+        btnSubmitEmailOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, EmailVerificationActivity.class);
+                Intent intent = new Intent(EmailVerificationActivity.this, LoginPageActivity.class);
                 startActivity(intent);
             }
         });
