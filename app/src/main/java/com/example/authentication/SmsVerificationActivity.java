@@ -11,20 +11,20 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+public class SmsVerificationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        Button btnRegister = findViewById(R.id.btnRegister);
+        setContentView(R.layout.activity_sms_verification);
 
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        Button btnSubmitSmsOtp = findViewById(R.id.btnSubmitSMS);
+        btnSubmitSmsOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, EmailVerificationActivity.class);
+                // Sau khi xác nhận OTP SMS, chuyển đến trang đăng nhập
+                Intent intent = new Intent(SmsVerificationActivity.this, UserInfoActivity.class);
                 startActivity(intent);
             }
         });
