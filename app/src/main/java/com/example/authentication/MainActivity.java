@@ -12,19 +12,32 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+    // Variables
+    Button btnSignin, btnSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        Button btnRegister = findViewById(R.id.btnRegister);
+        setContentView(R.layout.main);
 
+        // Mappings
+        btnSignin = findViewById(R.id.btnSignin);
+        btnSignup = findViewById(R.id.btnSignup);
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        // Button Clicks
+        btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, EmailVerificationActivity.class);
+                Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
