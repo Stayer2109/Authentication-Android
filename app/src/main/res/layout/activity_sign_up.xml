@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:hint="Email"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:padding="12dp" />
 
     <EditText
@@ -58,6 +58,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="22dp"
         android:hint="Số điện thoại"
+        android:inputType="phone"
         android:padding="12dp" />
 
     <EditText
