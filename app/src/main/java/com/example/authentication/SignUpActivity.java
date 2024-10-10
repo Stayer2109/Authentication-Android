@@ -2,7 +2,6 @@ package com.example.authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -29,13 +28,10 @@ public class SignUpActivity extends AppCompatActivity {
         // Mappings
         clickableSignIn = findViewById(R.id.clickableSignIn);
 
-        // Sign In Click Event
-        clickableSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
-                finish();
-            }
+        // Sign In Text Click Event
+        clickableSignIn.setOnClickListener(v -> {
+            startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
+            finish();
         });
     }
 }
