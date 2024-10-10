@@ -5,5 +5,8 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Authentication" parent="Base.Theme.Authentication" />
+    <style name="Theme.Authentication" parent="Base.Theme.Authentication">
+        <item name="colorPrimary">@color/purple_500</item> <!-- Toolbar color -->
+        <item name="colorPrimaryDark">@color/purple_700</item> <!-- Status bar color -->
+    </style>
 </resources>
