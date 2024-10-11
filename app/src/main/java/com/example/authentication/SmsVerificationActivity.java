@@ -42,6 +42,8 @@ public class SmsVerificationActivity extends AppCompatActivity {
     Button btnSubmitSmsOtp;
     EditText etSMSOTP;
     TextView btnSendOTPAgain;
+    EditText etPhoneNumber;
+    Button btnSendOTP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +55,18 @@ public class SmsVerificationActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         btnSubmitSmsOtp = findViewById(R.id.btnSubmitSMS);
         etSMSOTP = findViewById(R.id.etSMSOTP);
+        btnSendOTP = findViewById(R.id.btnSendOTP);
+        etPhoneNumber = findViewById(R.id.etPhoneNumber);
         btnSendOTPAgain = findViewById(R.id.btnSendOTPAgain);
         mAuth = FirebaseAuth.getInstance();
-        phoneNumber = getIntent().getStringExtra("phone");
-
-        sendOtp(phoneNumber, false);
 
         // Onclick Events Listener
+        btnSendOTP.setOnClickListener(v -> {
+            phoneNumber = etPhoneNumber.getText().toString();
+            sendOtp(phoneNumber, false);
+            setInProgress(true);
+        });
+
         btnSubmitSmsOtp.setOnClickListener(v -> {
             String enteredOtp = etSMSOTP.getText().toString();
             PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCode, enteredOtp);
@@ -74,7 +81,7 @@ public class SmsVerificationActivity extends AppCompatActivity {
     }
 
     void sendOtp(String phoneNumber, boolean isResend) {
-        startResendTimer();
+//        startResendTimer();
         setInProgress(false);
         PhoneAuthOptions.Builder builder = PhoneAuthOptions.newBuilder().setPhoneNumber(phoneNumber).setTimeout(60L, TimeUnit.SECONDS).setActivity(this).setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
@@ -131,26 +138,26 @@ public class SmsVerificationActivity extends AppCompatActivity {
         });
     }
 
-    void startResendTimer() {
-        btnSendOTPAgain.setEnabled(false);
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timeoutSecond--;
-                btnSendOTPAgain.setText("Resend OTP in " + timeoutSecond + " seconds");
-                if (timeoutSecond == 0) {
-                    timeoutSecond = 60L;
-                    timer.cancel();
-                    btnSendOTPAgain.setText("Resend OTP");
-
-                    runOnUiThread(() -> {
-                        btnSendOTPAgain.setOnClickListener(v -> {
-                            btnSendOTPAgain.setEnabled(true);
-                        });
-                    });
-                }
-            }
-        }, 0, 1000);
-    }
+//    void startResendTimer() {
+//        btnSendOTPAgain.setEnabled(false);
+//        Timer timer = new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                timeoutSecond--;
+//                btnSendOTPAgain.setText("Resend OTP in " + timeoutSecond + " seconds");
+//                if (timeoutSecond == 0) {
+//                    timeoutSecond = 60L;
+//                    timer.cancel();
+//                    btnSendOTPAgain.setText("Resend OTP");
+//
+//                    runOnUiThread(() -> {
+//                        btnSendOTPAgain.setOnClickListener(v -> {
+//                            btnSendOTPAgain.setEnabled(true);
+//                        });
+//                    });
+//                }
+//            }
+//        }, 0, 1000);
+//    }
 }

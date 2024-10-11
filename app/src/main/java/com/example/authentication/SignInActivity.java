@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ public class SignInActivity extends AppCompatActivity {
     TextView clickableSignUp;
     EditText email, password;
     ProgressBar progressBar;
+    LinearLayout llInfoText;
     Button btnLogin;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -41,6 +43,7 @@ public class SignInActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         email = findViewById(R.id.etEmail);
         password = findViewById(R.id.etPassword);
+        llInfoText = findViewById(R.id.llInfoText);
         Button btnLogin = findViewById(R.id.btnLogin);
         clickableSignUp = findViewById(R.id.clickableSignUp);
         clickableSignUp.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +76,7 @@ public class SignInActivity extends AppCompatActivity {
                         // Sign-in successful, check if user is verified
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null && user.isEmailVerified()) {
-                            redirectToSmsVerificationActivity(user.getPhoneNumber());
+                            redirectToSmsVerificationActivity();
                         } else {
                             AndroidUtil.showToast(getApplicationContext(), "Please verify your email first.");
                             setInProgress(false);
@@ -85,9 +88,8 @@ public class SignInActivity extends AppCompatActivity {
                 });
     }
 
-    private void redirectToSmsVerificationActivity(String phoneNumber) {
+    private void redirectToSmsVerificationActivity() {
         Intent intent = new Intent(SignInActivity.this, SmsVerificationActivity.class);
-        intent.putExtra("phone", phoneNumber);
         startActivity(intent);
         finish();
     }
