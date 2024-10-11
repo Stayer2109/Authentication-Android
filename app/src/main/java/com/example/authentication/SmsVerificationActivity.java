@@ -35,7 +35,7 @@ import utils.AndroidUtil;
 public class SmsVerificationActivity extends AppCompatActivity {
     // Variables
     String phoneNumber;
-    Long timeoutSecond = 60L;
+    Long timeoutSecond = 15L;
     String verificationCode;
     PhoneAuthProvider.ForceResendingToken resendingToken;
     FirebaseAuth mAuth;
@@ -64,6 +64,8 @@ public class SmsVerificationActivity extends AppCompatActivity {
         btnSendOTPAgain = findViewById(R.id.btnSendOTPAgain);
         spinnerCountryCode = findViewById(R.id.spinnerCountryCode);  // Initialize spinner
         mAuth = FirebaseAuth.getInstance();
+
+        btnSendOTPAgain.setEnabled(false);
 
         // Onclick Events Listener
         btnSendOTP.setOnClickListener(v -> {
@@ -97,7 +99,7 @@ public class SmsVerificationActivity extends AppCompatActivity {
                 signInWithPhoneAuthCredential(credential);
                 setInProgress(true);
             } catch (Exception e) {
-                AndroidUtil.showToast(SmsVerificationActivity.this, "Something went wrong");
+                AndroidUtil.showToast(SmsVerificationActivity.this, "Sai mã OTP");
             }
         });
 
@@ -107,9 +109,25 @@ public class SmsVerificationActivity extends AppCompatActivity {
         });
 
         btnSendOTPAgain.setOnClickListener(v -> {
-            sendOtp(phoneNumber, true);
-            setInProgress(true);
+            // Re-validate and reformat the phone number before resending OTP
+            phoneNumber = etPhoneNumber.getText().toString();
+
+            if (isValidPhoneNumber(phoneNumber)) {
+                // Concatenate country code and phone number
+                if (phoneNumber.matches("0\\d{9}")) {
+                    phoneNumber = phoneNumber.substring(1);  // Remove leading 0 for correct formatting
+                }
+                String selectedCountryCode = spinnerCountryCode.getSelectedItem().toString();
+                String fullPhoneNumber = selectedCountryCode + phoneNumber;
+
+                // Send OTP with the correct format
+                sendOtp(fullPhoneNumber, true);  // Resend OTP with the properly formatted phone number
+                setInProgress(true);
+            } else {
+                AndroidUtil.showToast(SmsVerificationActivity.this, "Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 chữ số.");
+            }
         });
+
     }
 
     // Validate phone number (checks if it has exactly 10 digits)
@@ -118,6 +136,7 @@ public class SmsVerificationActivity extends AppCompatActivity {
     }
 
     void sendOtp(String phoneNumber, boolean isResend) {
+        startResendTimer();
         setInProgress(false);
         PhoneAuthOptions.Builder builder = PhoneAuthOptions.newBuilder().setPhoneNumber(phoneNumber).setTimeout(60L, TimeUnit.SECONDS).setActivity(this).setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
@@ -137,7 +156,7 @@ public class SmsVerificationActivity extends AppCompatActivity {
                 super.onCodeSent(s, forceResendingToken);
                 verificationCode = s;
                 resendingToken = forceResendingToken;
-                AndroidUtil.showToast(SmsVerificationActivity.this, "OTP sent successfully");
+                AndroidUtil.showToast(SmsVerificationActivity.this, "Gửi mã OTP thành công");
                 setInProgress(false);
             }
         });
@@ -168,9 +187,30 @@ public class SmsVerificationActivity extends AppCompatActivity {
                     intent.putExtra("phone", phoneNumber);
                     startActivity(intent);
                 } else {
-                    AndroidUtil.showToast(SmsVerificationActivity.this, "OTP verification failed");
+                    AndroidUtil.showToast(SmsVerificationActivity.this, "Xác thực OTP thất bại");
                 }
             }
         });
+    }
+
+    void startResendTimer() {
+        btnSendOTPAgain.setEnabled(false);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                timeoutSecond--;
+                runOnUiThread(() -> btnSendOTPAgain.setText("Gửi lại mã OTP sau " + timeoutSecond + " giây"));
+
+                if (timeoutSecond == 0) {
+                    timeoutSecond = 15L;
+                    timer.cancel();
+                    runOnUiThread(() -> {
+                        btnSendOTPAgain.setText("Gửi lại mã OTP");
+                        btnSendOTPAgain.setEnabled(true);
+                    });
+                }
+            }
+        }, 0, 1000);
     }
 }
