@@ -9,72 +9,69 @@
     android:padding="16dp"
     tools:context=".SmsVerificationActivity">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone" />
-
-
     <TextView
         android:id="@+id/textTitleLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
         android:text="Xác minh SMS"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:text="Chúng tôi đã gửi mã otp đến số điện thoại:"
         android:textSize="13sp"
-        android:layout_gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Vui lòng xác thực."
         android:textSize="13sp"
-        android:layout_gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <EditText
-        android:id="@+id/etOtpEmail"
+        android:id="@+id/etSMSOTP"
         android:layout_width="match_parent"
-        android:padding="12dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
-        android:hint="Nhập OTP SMS" />
+        android:hint="Nhập OTP SMS"
+        android:padding="12dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btnSubmitSMS"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:text="Xác nhận OTP" />
 
-    <Button
-        android:id="@+id/btnSendAgainEmailOtp"
-        android:layout_gravity="center"
+    <TextView
+        android:id="@+id/btnSendOTPAgain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:text="Gửi lại mã OTP" />
 
