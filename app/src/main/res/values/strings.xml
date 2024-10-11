@@ -3,4 +3,9 @@
     <string name="authentication_app">Authentication App</string>
     <string name="dang_nhap">Đăng nhập</string>
     <string name="dang_ky">Đăng ký</string>
+    <string-array name="country_codes">
+        <item>+84</item>
+        <item>+1</item>
+        <item>+91</item>
+    </string-array>
 </resources>

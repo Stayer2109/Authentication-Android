@@ -23,15 +23,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Phone number input field -->
-    <EditText
-        android:id="@+id/etPhoneNumber"
+    <!-- Phone number input field with country code -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="Nhập số điện thoại"
-        android:inputType="phone"
-        android:padding="12dp" />
+        android:orientation="horizontal">
+
+        <!-- Country code selector (Spinner) -->
+        <Spinner
+            android:id="@+id/spinnerCountryCode"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            android:entries="@array/country_codes" />
+
+        <!-- Phone number input -->
+        <EditText
+            android:id="@+id/etPhoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:hint="Nhập số điện thoại"
+            android:inputType="phone"
+            android:padding="12dp" />
+    </LinearLayout>
 
     <!-- Button to send OTP -->
     <Button
@@ -106,5 +122,15 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:text="Gửi lại mã OTP" />
+
+    <TextView
+        android:id="@+id/clickableEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:text="Đăng nhập bằng Email"
+        android:textSize="14sp" />
 
 </LinearLayout>

@@ -2,10 +2,12 @@ package com.example.authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -41,9 +43,10 @@ public class SmsVerificationActivity extends AppCompatActivity {
     ProgressBar progressBar;
     Button btnSubmitSmsOtp;
     EditText etSMSOTP;
-    TextView btnSendOTPAgain;
+    TextView btnSendOTPAgain, clickableEmail;
     EditText etPhoneNumber;
     Button btnSendOTP;
+    Spinner spinnerCountryCode;  // New spinner variable
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,23 +58,52 @@ public class SmsVerificationActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         btnSubmitSmsOtp = findViewById(R.id.btnSubmitSMS);
         etSMSOTP = findViewById(R.id.etSMSOTP);
+        clickableEmail = findViewById(R.id.clickableEmail);
         btnSendOTP = findViewById(R.id.btnSendOTP);
         etPhoneNumber = findViewById(R.id.etPhoneNumber);
         btnSendOTPAgain = findViewById(R.id.btnSendOTPAgain);
+        spinnerCountryCode = findViewById(R.id.spinnerCountryCode);  // Initialize spinner
         mAuth = FirebaseAuth.getInstance();
 
         // Onclick Events Listener
         btnSendOTP.setOnClickListener(v -> {
-            phoneNumber = etPhoneNumber.getText().toString();
-            sendOtp(phoneNumber, false);
-            setInProgress(true);
+            try {
+                phoneNumber = etPhoneNumber.getText().toString();
+
+                // Validate phone number (must be 10 digits)
+                if (isValidPhoneNumber(phoneNumber)) {
+                    // Concatenate country code and phone number
+                    if (phoneNumber.matches("0\\d{9}")) {
+                        phoneNumber = phoneNumber.substring(1);
+                    }
+                    String selectedCountryCode = spinnerCountryCode.getSelectedItem().toString();
+                    String fullPhoneNumber = selectedCountryCode + phoneNumber;
+
+                    // Send OTP
+                    sendOtp(fullPhoneNumber, false);
+                    setInProgress(true);
+                } else {
+                    AndroidUtil.showToast(SmsVerificationActivity.this, "Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 chữ số.");
+                }
+            } catch (Exception e) {
+                AndroidUtil.showToast(SmsVerificationActivity.this, "Something went wrong");
+            }
         });
 
         btnSubmitSmsOtp.setOnClickListener(v -> {
-            String enteredOtp = etSMSOTP.getText().toString();
-            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCode, enteredOtp);
-            signInWithPhoneAuthCredential(credential);
-            setInProgress(true);
+            try {
+                String enteredOtp = etSMSOTP.getText().toString();
+                PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCode, enteredOtp);
+                signInWithPhoneAuthCredential(credential);
+                setInProgress(true);
+            } catch (Exception e) {
+                AndroidUtil.showToast(SmsVerificationActivity.this, "Something went wrong");
+            }
+        });
+
+        clickableEmail.setOnClickListener(v -> {
+            startActivity(new Intent(SmsVerificationActivity.this, SignInActivity.class));
+            finish();
         });
 
         btnSendOTPAgain.setOnClickListener(v -> {
@@ -80,8 +112,12 @@ public class SmsVerificationActivity extends AppCompatActivity {
         });
     }
 
+    // Validate phone number (checks if it has exactly 10 digits)
+    boolean isValidPhoneNumber(@NonNull String phoneNumber) {
+        return phoneNumber.matches("0\\d{9}") || phoneNumber.matches("\\d{9}");
+    }
+
     void sendOtp(String phoneNumber, boolean isResend) {
-//        startResendTimer();
         setInProgress(false);
         PhoneAuthOptions.Builder builder = PhoneAuthOptions.newBuilder().setPhoneNumber(phoneNumber).setTimeout(60L, TimeUnit.SECONDS).setActivity(this).setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
@@ -92,7 +128,7 @@ public class SmsVerificationActivity extends AppCompatActivity {
 
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
-                AndroidUtil.showToast(SmsVerificationActivity.this, "OTP verification failed");
+                AndroidUtil.showToast(SmsVerificationActivity.this, e.getMessage());
                 setInProgress(false);
             }
 
@@ -137,27 +173,4 @@ public class SmsVerificationActivity extends AppCompatActivity {
             }
         });
     }
-
-//    void startResendTimer() {
-//        btnSendOTPAgain.setEnabled(false);
-//        Timer timer = new Timer();
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                timeoutSecond--;
-//                btnSendOTPAgain.setText("Resend OTP in " + timeoutSecond + " seconds");
-//                if (timeoutSecond == 0) {
-//                    timeoutSecond = 60L;
-//                    timer.cancel();
-//                    btnSendOTPAgain.setText("Resend OTP");
-//
-//                    runOnUiThread(() -> {
-//                        btnSendOTPAgain.setOnClickListener(v -> {
-//                            btnSendOTPAgain.setEnabled(true);
-//                        });
-//                    });
-//                }
-//            }
-//        }, 0, 1000);
-//    }
 }

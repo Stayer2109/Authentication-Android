@@ -26,7 +26,7 @@ import utils.AndroidUtil;
 
 public class SignInActivity extends AppCompatActivity {
     // Variables
-    TextView clickableSignUp;
+    TextView clickableSignUp, clickablePhone;
     EditText email, password;
     ProgressBar progressBar;
     LinearLayout llInfoText;
@@ -43,6 +43,7 @@ public class SignInActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         email = findViewById(R.id.etEmail);
         password = findViewById(R.id.etPassword);
+        clickablePhone = findViewById(R.id.clickablePhone);
         llInfoText = findViewById(R.id.llInfoText);
         Button btnLogin = findViewById(R.id.btnLogin);
         clickableSignUp = findViewById(R.id.clickableSignUp);
@@ -54,6 +55,7 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
+        // Click Events
         btnLogin.setOnClickListener(v -> {
             String emailText = email.getText().toString().trim();
             String passwordText = password.getText().toString().trim();
@@ -63,6 +65,11 @@ public class SignInActivity extends AppCompatActivity {
             } else {
                 signInWithEmailPassword(emailText, passwordText);
             }
+        });
+
+        clickablePhone.setOnClickListener(v -> {
+            startActivity(new Intent(SignInActivity.this, SmsVerificationActivity.class));
+            finish();
         });
     }
 

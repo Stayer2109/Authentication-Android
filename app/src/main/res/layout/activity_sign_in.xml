@@ -51,6 +51,16 @@
         android:layout_marginTop="10dp"
         android:text="Đăng nhập" />
 
+    <TextView
+        android:id="@+id/clickablePhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:text="Đăng nhập bằng Email"
+        android:textSize="14sp" />
+
     <!--  Put On Click  -->
     <TextView
         android:id="@+id/clickableSignUp"
