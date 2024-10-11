@@ -46,7 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Sign In Text Click Event
         clickableSignIn.setOnClickListener(v -> {
-            startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
+            startActivity(new Intent(SignUpActivity.this, EmailSignInActivity.class));
             finish();
         });
 
@@ -107,7 +107,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                             "Please verify before signing in.",
                                                     Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(SignUpActivity.this,
-                                                    SignInActivity.class));
+                                                    EmailSignInActivity.class));
                                             finish();
                                         } else {
                                             // Failed to send verification email

@@ -10,21 +10,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.EmailAuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthOptions;
-import com.google.firebase.auth.PhoneAuthProvider;
-
-import java.util.concurrent.TimeUnit;
 
 import utils.AndroidUtil;
 
-public class SignInActivity extends AppCompatActivity {
+public class EmailSignInActivity extends AppCompatActivity {
     // Variables
     TextView clickableSignUp, clickablePhone;
     EditText email, password;
@@ -37,7 +31,7 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_sign_in_email);
 
         // Mappings
         progressBar = findViewById(R.id.progressBar);
@@ -50,7 +44,7 @@ public class SignInActivity extends AppCompatActivity {
         clickableSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
+                startActivity(new Intent(EmailSignInActivity.this, SignUpActivity.class));
                 finish();
             }
         });
@@ -68,7 +62,7 @@ public class SignInActivity extends AppCompatActivity {
         });
 
         clickablePhone.setOnClickListener(v -> {
-            startActivity(new Intent(SignInActivity.this, SmsVerificationActivity.class));
+            startActivity(new Intent(EmailSignInActivity.this, PhoneSignInAcvitity.class));
             finish();
         });
     }
@@ -83,7 +77,7 @@ public class SignInActivity extends AppCompatActivity {
                         // Sign-in successful, check if user is verified
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null && user.isEmailVerified()) {
-                            redirectToSmsVerificationActivity();
+                            redirectToUserInfoActivity();
                         } else {
                             AndroidUtil.showToast(getApplicationContext(), "Please verify your email first.");
                             setInProgress(false);
@@ -95,8 +89,8 @@ public class SignInActivity extends AppCompatActivity {
                 });
     }
 
-    private void redirectToSmsVerificationActivity() {
-        Intent intent = new Intent(SignInActivity.this, SmsVerificationActivity.class);
+    private void redirectToUserInfoActivity() {
+        Intent intent = new Intent(EmailSignInActivity.this, UserInfoActivity.class);
         startActivity(intent);
         finish();
     }

@@ -23,10 +23,10 @@
             android:name=".UserInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".SmsVerificationActivity"
+            android:name=".PhoneSignInAcvitity"
             android:exported="false" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".EmailSignInActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
