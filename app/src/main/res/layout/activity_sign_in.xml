@@ -21,11 +21,18 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
     <EditText
-        android:id="@+id/etPhone"
+        android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:hint="Nhập Số Điện Thoại"
+        android:hint="Nhập email"
+        android:inputType="textEmailAddress"
         android:padding="12dp" />
 
     <EditText
