@@ -37,39 +37,6 @@
         android:padding="12dp" />
 
     <EditText
-        android:id="@+id/etFullName"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="22dp"
-        android:hint="Họ và Tên"
-        android:padding="12dp" />
-
-    <EditText
-        android:id="@+id/etAge"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="22dp"
-        android:hint="Tuổi"
-        android:padding="12dp" />
-
-    <EditText
-        android:id="@+id/etPhone"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="22dp"
-        android:hint="Số điện thoại"
-        android:inputType="phone"
-        android:padding="12dp" />
-
-    <EditText
-        android:id="@+id/etAddress"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="22dp"
-        android:hint="Địa chỉ"
-        android:padding="12dp" />
-
-    <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="48dp"

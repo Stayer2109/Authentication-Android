@@ -41,7 +41,6 @@ public class SignUpActivity extends AppCompatActivity {
         clickableSignIn = findViewById(R.id.clickableSignIn);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
-        etPhone = findViewById(R.id.etPhone);
         btnRegister = findViewById(R.id.btnRegister);
         progressBar = findViewById(R.id.progressBar);
 
@@ -88,42 +87,42 @@ public class SignUpActivity extends AppCompatActivity {
 
     // Use Firebase Auth to Sign Up
     private void signUp(String email, String password) {
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful()) {
-                            // Sign Up Successful, Firebase's already checked duplicated email, send verification email
-                            progressBar.setVisibility(ProgressBar.VISIBLE);
-                            Toast.makeText(SignUpActivity.this,
-                                    "Sign Up Successful, Wait for sending email verification",
-                                    Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            if (user != null) {
-                                user.sendEmailVerification()
-                                        .addOnCompleteListener(verifyTask -> {
-                                            progressBar.setVisibility(ProgressBar.GONE);
-                                            if (verifyTask.isSuccessful()) {
-                                                // Email sent, inform the user
-                                                Toast.makeText(SignUpActivity.this,
-                                                        "Verification email sent. " +
-                                                                "Please verify before signing in.",
-                                                        Toast.LENGTH_SHORT).show();
-                                                startActivity(new Intent(SignUpActivity.this,
-                                                        SignInActivity.class));
-                                                finish();
-                                            } else {
-                                                // Failed to send verification email
-                                                Toast.makeText(SignUpActivity.this,
-                                                        "Failed to send verification email: "
-                                                                + verifyTask.getException().getMessage(),
-                                                        Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                            }
-                        } else {
-                            // Sign Up Failed, show error message from Firebase
-                            Toast.makeText(SignUpActivity.this,
-                                    task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign Up Successful, Firebase's already checked duplicated email, send verification email
+                        progressBar.setVisibility(ProgressBar.VISIBLE);
+                        Toast.makeText(SignUpActivity.this,
+                                "Sign Up Successful, Wait for sending email verification",
+                                Toast.LENGTH_SHORT).show();
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            user.sendEmailVerification()
+                                    .addOnCompleteListener(verifyTask -> {
+                                        progressBar.setVisibility(ProgressBar.GONE);
+                                        if (verifyTask.isSuccessful()) {
+                                            // Email sent, inform the user
+                                            Toast.makeText(SignUpActivity.this,
+                                                    "Verification email sent. " +
+                                                            "Please verify before signing in.",
+                                                    Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(SignUpActivity.this,
+                                                    SignInActivity.class));
+                                            finish();
+                                        } else {
+                                            // Failed to send verification email
+                                            Toast.makeText(SignUpActivity.this,
+                                                    "Failed to send verification email: "
+                                                            + verifyTask.getException().getMessage(),
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                         }
-                    });
+                    } else {
+                        // Sign Up Failed, show error message from Firebase
+                        Toast.makeText(SignUpActivity.this,
+                                task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
