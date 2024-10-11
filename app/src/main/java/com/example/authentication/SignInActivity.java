@@ -73,8 +73,7 @@ public class SignInActivity extends AppCompatActivity {
                         // Sign-in successful, check if user is verified
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null && user.isEmailVerified()) {
-                            AndroidUtil.showToast(getApplicationContext(), "Sign-in successful");
-                            redirectToSmsVerificationActivity();
+                            redirectToSmsVerificationActivity(user.getPhoneNumber());
                         } else {
                             AndroidUtil.showToast(getApplicationContext(), "Please verify your email first.");
                             setInProgress(false);
@@ -86,9 +85,9 @@ public class SignInActivity extends AppCompatActivity {
                 });
     }
 
-    private void redirectToSmsVerificationActivity() {
+    private void redirectToSmsVerificationActivity(String phoneNumber) {
         Intent intent = new Intent(SignInActivity.this, SmsVerificationActivity.class);
-        intent.putExtra("email", email.getText().toString());
+        intent.putExtra("phone", phoneNumber);
         startActivity(intent);
         finish();
     }
