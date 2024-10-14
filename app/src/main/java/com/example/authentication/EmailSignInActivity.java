@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.EmailAuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -62,7 +61,7 @@ public class EmailSignInActivity extends AppCompatActivity {
         });
 
         clickablePhone.setOnClickListener(v -> {
-            startActivity(new Intent(EmailSignInActivity.this, PhoneSignInAcvitity.class));
+            startActivity(new Intent(EmailSignInActivity.this, PhoneSignInActivity.class));
             finish();
         });
     }

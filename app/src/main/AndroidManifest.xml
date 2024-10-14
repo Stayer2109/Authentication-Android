@@ -23,7 +23,7 @@
             android:name=".UserInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".PhoneSignInAcvitity"
+            android:name=".PhoneSignInActivity"
             android:exported="false" />
         <activity
             android:name=".EmailSignInActivity"

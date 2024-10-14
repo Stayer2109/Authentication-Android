@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 import utils.AndroidUtil;
 
-public class PhoneSignInAcvitity extends AppCompatActivity {
+public class PhoneSignInActivity extends AppCompatActivity {
     // Variables
     String phoneNumber;
     Long timeoutSecond = 15L;
@@ -81,10 +81,10 @@ public class PhoneSignInAcvitity extends AppCompatActivity {
                     sendOtp(fullPhoneNumber, false);
                     setInProgress(true);
                 } else {
-                    AndroidUtil.showToast(PhoneSignInAcvitity.this, "Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 chữ số.");
+                    AndroidUtil.showToast(PhoneSignInActivity.this, "Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 chữ số.");
                 }
             } catch (Exception e) {
-                AndroidUtil.showToast(PhoneSignInAcvitity.this, "Something went wrong");
+                AndroidUtil.showToast(PhoneSignInActivity.this, "Something went wrong");
             }
         });
 
@@ -95,12 +95,12 @@ public class PhoneSignInAcvitity extends AppCompatActivity {
                 signInWithPhoneAuthCredential(credential);
                 setInProgress(true);
             } catch (Exception e) {
-                AndroidUtil.showToast(PhoneSignInAcvitity.this, "Sai mã OTP");
+                AndroidUtil.showToast(PhoneSignInActivity.this, "Sai mã OTP");
             }
         });
 
         clickableEmail.setOnClickListener(v -> {
-            startActivity(new Intent(PhoneSignInAcvitity.this, EmailSignInActivity.class));
+            startActivity(new Intent(PhoneSignInActivity.this, EmailSignInActivity.class));
             finish();
         });
 
@@ -120,7 +120,7 @@ public class PhoneSignInAcvitity extends AppCompatActivity {
                 sendOtp(fullPhoneNumber, true);  // Resend OTP with the properly formatted phone number
                 setInProgress(true);
             } else {
-                AndroidUtil.showToast(PhoneSignInAcvitity.this, "Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 chữ số.");
+                AndroidUtil.showToast(PhoneSignInActivity.this, "Số điện thoại không hợp lệ. Vui lòng nhập đúng 10 chữ số.");
             }
         });
 
@@ -143,7 +143,7 @@ public class PhoneSignInAcvitity extends AppCompatActivity {
 
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
-                AndroidUtil.showToast(PhoneSignInAcvitity.this, e.getMessage());
+                AndroidUtil.showToast(PhoneSignInActivity.this, e.getMessage());
                 setInProgress(false);
             }
 
@@ -152,7 +152,7 @@ public class PhoneSignInAcvitity extends AppCompatActivity {
                 super.onCodeSent(s, forceResendingToken);
                 verificationCode = s;
                 resendingToken = forceResendingToken;
-                AndroidUtil.showToast(PhoneSignInAcvitity.this, "Gửi mã OTP thành công");
+                AndroidUtil.showToast(PhoneSignInActivity.this, "Gửi mã OTP thành công");
                 setInProgress(false);
             }
         });
@@ -179,11 +179,11 @@ public class PhoneSignInAcvitity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 setInProgress(false);
                 if (task.isSuccessful()) {
-                    Intent intent = new Intent(PhoneSignInAcvitity.this, UserInfoActivity.class);
+                    Intent intent = new Intent(PhoneSignInActivity.this, UserInfoActivity.class);
                     intent.putExtra("phone", phoneNumber);
                     startActivity(intent);
                 } else {
-                    AndroidUtil.showToast(PhoneSignInAcvitity.this, "Xác thực OTP thất bại");
+                    AndroidUtil.showToast(PhoneSignInActivity.this, "Xác thực OTP thất bại");
                 }
             }
         });
